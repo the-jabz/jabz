@@ -1,0 +1,6 @@
+FROM node:20-alpine
+
+# CHANGE THIS DIRECTORY TO CONTAINER'S ROOT
+# WORKDIR /app 
+
+COPY . .
