@@ -1,6 +1,14 @@
 # jabz
 Decentralized Anonymous Online Chatroom for Text and Voice Communication and Media Sharing (DAOCTVC for short)
 
+# DOCKER COMPOSE
+    - docker compose up --build
+
+    to end
+    - ctrl-c
+    - docker compose down
+
+
 # DOCKER RUN
     - clone the repo
     - docker build -t jabz-app .
