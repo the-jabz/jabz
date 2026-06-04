@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # copys project code
-COPY . .
+COPY / .
 
 # port to view the webpage
 EXPOSE 5173

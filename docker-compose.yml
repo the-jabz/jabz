@@ -1,12 +1,23 @@
-version: "3"
 services:
   vite-app:
-    build: .
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
     volumes:
-      - .:/app
+      - ./frontend:/app
       - /app/node_modules
+    working_dir: /app
     environment:
       - CHOKIDAR_USEPOLLING=true
     command: npm run dev
+
+  backend:
+    image: rust:1.75
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: cargo run
+    ports:
+      - "3000:3000"
