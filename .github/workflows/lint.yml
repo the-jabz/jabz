@@ -52,7 +52,7 @@ jobs:
           bins: cargo-make
           components: clippy
       - name: Run linter
-        run: cargo make lint
+        run: cargo make lint-all
     
   docker:
     name: Docker Lint
