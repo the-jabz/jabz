@@ -58,6 +58,9 @@ jobs:
     name: Docker Lint
     runs-on: ubuntu-latest
     container: pipelinecomponents/hadolint:0.27.2
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v5
 
