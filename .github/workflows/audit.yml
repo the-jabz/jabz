@@ -33,12 +33,11 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Run cargo audit (docker)
+      - name: Install cargo-audit
         run: |
-          docker run --rm \
-            -v $PWD:/app \
-            -w /app \
-            rustsec/cargo-audit cargo audit
+          curl -L https://github.com/RustSec/rustsec/releases/latest/download/cargo-audit-x86_64-unknown-linux-gnu.tar.gz \
+          | tar xz
+          sudo mv cargo-audit /usr/local/bin/
 
       - name: cargo audit
         working-directory: backend
