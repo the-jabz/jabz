@@ -35,8 +35,10 @@ jobs:
 
       - name: Install cargo-audit
         run: |
-          curl -L https://github.com/RustSec/rustsec/releases/latest/download/cargo-audit-x86_64-unknown-linux-gnu.tar.gz \
-          | tar xz
+          curl -L -f --proto '=https' --tlsv1.2 \
+            https://github.com/RustSec/rustsec/releases/download/v0.18.1/cargo-audit-x86_64-unknown-linux-gnu.tar.gz \
+            -o cargo-audit.tar.gz
+          tar xzf cargo-audit.tar.gz
           sudo mv cargo-audit /usr/local/bin/
 
       - name: cargo audit
