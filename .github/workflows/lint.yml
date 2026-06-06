@@ -47,17 +47,14 @@ jobs:
         working-directory: backend
     steps:
       - uses: actions/checkout@v4
-      - uses: moonrepo/setup-rust@v1
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          bins: cargo-make
           components: clippy
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: backend
       - name: Run clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
-      # - name: Check TOML formatting
-      #   run: cargo make lint-all
     
   docker:
     name: Docker Lint
