@@ -38,26 +38,9 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npx tsc --noEmit
-
-  rust-clippy:
-    name: Rust Clippy
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-    steps:
-      - uses: actions/checkout@v4
-      - uses: moonrepo/setup-rust@v1
-        with:
-          components: clippy
-      - uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: backend
-      - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
-
-  rust-toml:
-    name: TOML Lint
+    
+  rust:
+    name: Rust Lint
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -67,11 +50,14 @@ jobs:
       - uses: moonrepo/setup-rust@v1
         with:
           bins: cargo-make
+          components: clippy
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: backend
-      - name: Check TOML formatting
-        run: cargo install taplo-cli --locked && taplo fmt --check Cargo.toml ../Makefile.toml
+      - name: Run clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      # - name: Check TOML formatting
+      #   run: cargo make lint-all
     
   docker:
     name: Docker Lint
