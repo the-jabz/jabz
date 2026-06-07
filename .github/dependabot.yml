@@ -17,7 +17,7 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      npm-dependencies:
+      rust-dependencies:
         patterns:
           - "*"
 
@@ -29,7 +29,7 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      npm-dependencies:
+      docker-dependencies:
         patterns:
           - "*"
 
@@ -41,6 +41,6 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      npm-dependencies:
+      actions-dependencies:
         patterns:
           - "*"
