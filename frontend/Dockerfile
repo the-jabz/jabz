@@ -1,5 +1,5 @@
 # light weight base image for node can be changed later if needed
-FROM node:20-alpine
+FROM node:current-alpine
 
 # Set directory to the root of the app
  WORKDIR /app 

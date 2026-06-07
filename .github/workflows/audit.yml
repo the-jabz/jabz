@@ -1,0 +1,68 @@
+name: Dependency Audit
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+    # ---------- Frontend ----------
+    frontend-audit:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: Setup Node
+          uses: actions/setup-node@v4
+          with:
+            node-version: 24
+            cahce: 'npm'
+            cache-dependency-path: 'frontend/package-lock.json'
+
+        - name: Install frontend deps
+          working-directory: frontend
+          run: npm ci
+
+        - name: npm audit
+          working-directory: frontend
+          run: npm audit --audit-level=high
+
+    # ---------- Backend ----------
+    backend-audit:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Setup Rust
+          uses: dtolnay/rust-toolchain@stable
+
+        - name: Cache cargo registry
+          uses: Swatinem/rust-cache@v2
+          with:
+            workspaces: backend
+
+        - name: Install cargo-audit
+          run: cargo install cargo-audit --locked
+
+        - name: Run cargo audit
+          working-directory: backend
+          run: cargo audit
+
+    # ---------- Docker ----------
+    docker-scan:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Build frontend Docker image
+          run: docker build -t frontend:ci ./frontend
+
+        - name: Scan frontend Docker image
+          uses: aquasecurity/trivy-action@master
+          with:
+            image-ref: frontend:ci
+            severity: HIGH,CRITICAL
+            exit-code: '1'
