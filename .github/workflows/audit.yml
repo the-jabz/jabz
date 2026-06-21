@@ -13,7 +13,7 @@ jobs:
     frontend-audit:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v6
+        - uses: actions/checkout@v7
         - name: Setup Node
           uses: actions/setup-node@v6
           with:
@@ -33,7 +33,7 @@ jobs:
     backend-audit:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v6
+        - uses: actions/checkout@v7
 
         - name: Setup Rust
           uses: dtolnay/rust-toolchain@stable
@@ -55,7 +55,7 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - uses: actions/checkout@v6
+        - uses: actions/checkout@v7
 
         - name: Build frontend Docker image
           run: docker build -t frontend:ci ./frontend
